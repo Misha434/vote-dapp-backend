@@ -1,0 +1,29 @@
+# ベースイメージ
+FROM golang:1.20.8
+
+# 作業ディレクトリを設定
+WORKDIR /app
+
+# 必要なファイルをコピー
+COPY go.mod go.sum ./
+
+# 依存関係のインストール
+RUN go mod download
+
+# airツールをインストール
+RUN go install github.com/cosmtrek/air@latest
+
+# ソースコードをコピー
+COPY ./cmd/vote-dapp-backend ./cmd/vote-dapp-backend
+COPY ./pkg ./pkg
+# 以下の行を追加
+COPY ./gen ./gen
+
+# ビルド（コンパイル）
+RUN CGO_ENABLED=0 GOOS=linux go build -o /app/tmp/main ./cmd/vote-dapp-backend/main.go
+
+# アプリケーションが使用するポートをEXPOSE
+EXPOSE 8080
+
+# コマンドを指定
+CMD ["/app/tmp/main"]
