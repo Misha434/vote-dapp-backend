@@ -16,8 +16,7 @@ RUN go install github.com/cosmtrek/air@latest
 # ソースコードをコピー
 COPY ./cmd/vote-dapp-backend ./cmd/vote-dapp-backend
 COPY ./pkg ./pkg
-# 以下の行を追加
-COPY ./gen ./gen
+COPY ./proto/gen ./proto/gen
 
 # ビルド（コンパイル）
 RUN CGO_ENABLED=0 GOOS=linux go build -o /app/tmp/main ./cmd/vote-dapp-backend/main.go
