@@ -10,8 +10,8 @@ import (
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 
-	greetv1 "vote-dapp-backend/proto/gen/greet/v1"
-	"vote-dapp-backend/proto/gen/greet/v1/greetv1connect"
+	greetv1 "vote-dapp-backend/proto/gen/backend/greet/v1"
+	"vote-dapp-backend/proto/gen/backend/greet/v1/greetv1connect"
 )
 
 type GreetServer struct{}

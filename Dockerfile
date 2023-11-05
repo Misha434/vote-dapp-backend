@@ -10,7 +10,7 @@ RUN go mod download
 # ソースコードをコピー
 COPY ./cmd/vote-dapp-backend ./cmd/vote-dapp-backend
 COPY ./pkg ./pkg
-COPY ./proto/gen ./proto/gen
+COPY ./proto/gen/backend ./proto/gen/backend
 
 # アプリケーションのビルド
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main ./cmd/vote-dapp-backend/main.go
