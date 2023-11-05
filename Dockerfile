@@ -1,5 +1,5 @@
 # ビルドステージ
-FROM golang:1.20.8-slim AS builder
+FROM golang:1.20.8 AS builder
 
 WORKDIR /build
 
@@ -16,8 +16,10 @@ COPY ./proto/gen ./proto/gen
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main ./cmd/vote-dapp-backend/main.go
 
 # 実行ステージ
-# distroless base imageを使用
-FROM gcr.io/distroless/base-debian10
+FROM gcr.io/distroless/static
+
+# セキュリティのため非特権ユーザーを指定する
+USER nonroot:nonroot
 
 WORKDIR /app
 
